@@ -84,7 +84,7 @@ Open: http://127.0.0.1:5051
 > `uploads/` is already ignored in `.gitignore`, so uploaded images will not be committed.
 
 ```bash
-cd "/Users/janmaijaysingh/Downloads/AIML project"
+cd "/Users/shailja/Downloads/AIML project"
 git init
 git add .
 git commit -m "Initial SmartAahar AI app"
