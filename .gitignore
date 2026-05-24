@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.venv/
+.venv311/
+env/
+venv/
+
+.env
+.env.local
+
+uploads/
+
+.cursor/

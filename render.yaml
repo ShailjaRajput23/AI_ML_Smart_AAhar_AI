@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: smartaahar-ai
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-prod.txt
+    startCommand: gunicorn app:app
+    autoDeploy: true
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PORT
+        value: 10000
+      - key: SESSION_TIMEOUT_MINUTES
+        value: 10
+      - key: MIN_FOOD_CONFIDENCE
+        value: 0.70
+      - key: MONGO_URI
+        sync: false
+      - key: MAIL_SERVER
+        sync: false
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_FROM
+        sync: false
+      - key: MAIL_USE_TLS
+        value: true

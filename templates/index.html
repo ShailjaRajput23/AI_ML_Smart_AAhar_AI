@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartAahar Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body data-authenticated="{{ 'true' if session.get('user') else 'false' }}" data-session-timeout-minutes="{{ session_timeout_minutes }}">
+  <header class="site-header">
+    <a href="/" class="brand brand-link">
+      <span class="brand-icon">🍽️</span>
+      <span>SmartAahar AI</span>
+    </a>
+    <nav>
+      <a href="/">🏠 Home</a>
+      <a href="/dashboard" class="button button-secondary">📊 Dashboard</a>
+      <a href="/logout" class="button button-primary">🚪 Logout</a>
+    </nav>
+  </header>
+
+  <main class="dashboard-shell">
+    <section class="dashboard-hero">
+      <div>
+        <p class="eyebrow">Dashboard</p>
+        <h1>Welcome, {{ username }}. Upload Gujarati food image for prediction</h1>
+        <p>Choose one food image and click analyze to get predicted class and confidence score.</p>
+      </div>
+      <div class="dashboard-stats">
+        <div>
+          <p>Model input</p>
+          <strong>224 x 224</strong>
+        </div>
+        <div>
+          <p>Status</p>
+          <strong>Ready</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="upload-section" style="margin-top: 1.5rem;">
+      <div class="upload-card">
+        <h2>Image upload</h2>
+        <p>Select one image to run AI prediction.</p>
+        <label class="file-button">
+          Select image
+          <input id="image-upload" type="file" accept="image/*">
+        </label>
+        <div id="preview-area" class="image-preview">No image selected yet.</div>
+        <button id="analyze-button" class="button button-primary" type="button">Analyze</button>
+      </div>
+
+      <aside class="result-panel">
+        <h3>Prediction Result</h3>
+        <div class="result-grid">
+          <article>
+            <p>Dish</p>
+            <h4 id="dish-name">-</h4>
+          </article>
+          <article>
+            <p>Confidence</p>
+            <h4 id="calorie-count">-</h4>
+          </article>
+        </div>
+        <div class="confidence-bar">
+          <div id="confidence-fill" class="confidence-fill"></div>
+        </div>
+        <div class="recommendation-list" id="recommendation-list">
+          <p>Upload an image and click analyze.</p>
+        </div>
+        <p style="margin-top: 1rem;"><strong>Suggestion:</strong> <span id="swap-suggestion">N/A</span></p>
+      </aside>
+    </section>
+
+    <section class="upload-card" style="margin-top: 1.5rem;">
+      <h2>Recent Predictions</h2>
+      {% if recent_predictions %}
+        <div class="history-grid">
+          {% for item in recent_predictions %}
+            <article class="history-item">
+              <h4>{{ item.prediction }}</h4>
+              <p>Confidence: {{ "%.2f"|format((item.confidence or 0) * 100) }}%</p>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No predictions yet. Upload your first dish image.</p>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>🍽️ SmartAahar AI • Predict calories for Gujarati food • Upload, learn, and swap smarter.</p>
+    <div class="footer-links">
+      <a href="/">🏠 Home</a>
+      <a href="/dashboard">📊 Dashboard</a>
+      <a href="/logout">🚪 Logout</a>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='session-timeout.js') }}"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
