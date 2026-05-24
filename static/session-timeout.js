@@ -15,7 +15,7 @@
     try {
       const response = await fetch("/session/ping", {
         method: "POST",
-        headers: { "X-Requested-With": "XMLHttpRequest" }
+        credentials: "same-origin"
       });
       if (response.status === 401) {
         window.location.href = "/login";
