@@ -71,7 +71,7 @@ Open: http://127.0.0.1:5051
 4. In Render, create a new Web Service from your GitHub repo.
 5. Render can auto-detect `render.yaml`, or set manually:
    - Build command: `pip install -r requirements-prod.txt`
-   - Start command: `gunicorn app:app`
+   - Start command: `gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --timeout 180`
 6. Add environment variables in Render dashboard:
    - `MONGO_URI` = your Atlas URI
    - `SECRET_KEY` = strong random value
